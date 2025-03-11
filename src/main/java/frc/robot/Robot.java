@@ -32,10 +32,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Flipper Angle", Constants.flipper.getFlipperAngle());
     SmartDashboard.putNumber("Flipper Velocity:", Constants.flipper.getTargetFlipperSpeed());
     SmartDashboard.putNumber("Desired Angle:", Constants.flipper.getDesiredAngle());
-    if(Constants.flipper.getFlipperAngle()>15)
+    if(Math.abs(Constants.flipper.getFlipperAngle())>45)
     {
       Constants.flipper.emergencyStop();
     }
+    SmartDashboard.putString("Elevator Mode:", Constants.getMode());
+    SmartDashboard.putNumber("Speed", Constants.getSpeedFactor());
 
   }
 
@@ -69,15 +71,13 @@ public class Robot extends TimedRobot {
     {
       m_autonomousCommand.cancel();
     }
-    SmartDashboard.putString("Elevator Mode", "coral");
-    SmartDashboard.putString("Speed", "normal");
   }
 
   @Override
   public void teleopPeriodic()
   {
     Constants.elevator.setElevatorSpeed();
-    //Constants.flipper.setFlipperSpeed();
+    Constants.flipper.setFlipperSpeed();
   }
 
   @Override

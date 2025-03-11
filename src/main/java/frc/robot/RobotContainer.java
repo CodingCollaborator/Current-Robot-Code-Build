@@ -22,6 +22,7 @@ import frc.robot.subsystems.CoralIntake;
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
@@ -39,7 +40,7 @@ public class RobotContainer {
     }
 
     private void configureBindings(int all) {
-        this.alliance=all;
+        this.alliance = all;
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         Constants.drivetrain.setDefaultCommand(
@@ -62,7 +63,8 @@ public class RobotContainer {
         joystick0.start().and(joystick0.y()).whileTrue(Constants.drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick0.start().and(joystick0.x()).whileTrue(Constants.drivetrain.sysIdQuasistatic(Direction.kReverse));
         joystick0.leftBumper().onTrue(Constants.drivetrain.runOnce(() -> Constants.drivetrain.seedFieldCentric()));
-        joystick0.rightBumper().onTrue(Constants.switchSpeeds());
+        joystick0.povUp().onTrue(Constants.switchToTurboSpeed());
+        joystick0.povDown().onTrue(Constants.switchToRegularSpeed());
         //Drive System Controls
 
         //Climber Controls
@@ -71,26 +73,27 @@ public class RobotContainer {
         //Climber Controls
 
         //CORAL MODE CONTROLS
-        joystick1.a().onTrue(Constants.elevator.setCoralHeight(0, Constants.getMode()));             //  LevelOne/Reset/!Feeder!
-        joystick1.a().onTrue(Constants.flipper.setDesiredCoralAngle(0, Constants.getMode()));//FEEDER ANGLE - TUNE
+        joystick1.a().onTrue(Constants.elevator.setCoralHeight(2.5, Constants.getMode()));             //  LevelOne/Reset/!Feeder!
+        joystick1.a().onTrue(Constants.flipper.setDesiredCoralAngle(7.52, Constants.getMode()));//FEEDER ANGLE - TUNE
 
-        joystick1.x().onTrue(Constants.elevator.setCoralHeight(40, Constants.getMode()));            //  LevelTwo
-        joystick1.x().onTrue(Constants.flipper.setDesiredCoralAngle(0, Constants.getMode()));//LEVEL TWO ANGLE - TUNE
+        joystick1.x().onTrue(Constants.elevator.setCoralHeight(41.1, Constants.getMode()));            //  LevelTwo
+        joystick1.x().onTrue(Constants.flipper.setDesiredCoralAngle(2.357, Constants.getMode()));//LEVEL TWO ANGLE - TUNE
 
-        joystick1.y().onTrue(Constants.elevator.setCoralHeight(134.63, Constants.getMode()));        //  LevelThree
-        joystick1.y().onTrue(Constants.flipper.setDesiredCoralAngle(0, Constants.getMode()));//SAME AS LAST ANGLE
+        joystick1.y().onTrue(Constants.elevator.setCoralHeight(128.63, Constants.getMode()));        //  LevelThree
+        joystick1.y().onTrue(Constants.flipper.setDesiredCoralAngle(2.357, Constants.getMode()));//SAME AS LAST ANGLE
 
-        joystick1.b().onTrue(Constants.elevator.setCoralHeight(210, Constants.getMode()));           //  LevelFour
+        joystick1.b().onTrue(Constants.elevator.setCoralHeight(230, Constants.getMode()));           //  LevelFour
         joystick1.b().onTrue(Constants.flipper.setDesiredCoralAngle(0, Constants.getMode()));//LEVEL FOUR ANGLE - TUNE
 
         joystick1.rightStick().onTrue(Constants.flipper.setDesiredCoralAngle(0, Constants.getMode()));//TROUGH ANGLE - TUNE
 
-        //joystick1.leftBumper().whileTrue(Constants.coralIntake.pullCoralIn(Constants.getMode())).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
-        //joystick1.rightBumper().whileTrue(Constants.coralIntake.pushCoralOut(Constants.getMode())).onFalse(Constants.coralIntake.hold());
+        joystick1.leftBumper().whileTrue(Constants.coralIntake.pullCoralIn(Constants.getMode())).onFalse(Constants.coralIntake.hold(Constants.getMode()));//On true, button pressed, calls method.
+        joystick1.rightBumper().whileTrue(Constants.coralIntake.pushCoralOut(Constants.getMode())).onFalse(Constants.coralIntake.stopIntake());
         //CORAL MODE CONTROLS
        
         //SWITCH MODES
-        joystick1.leftStick().onTrue(Constants.switchModes());
+        joystick1.povUp().onTrue(Constants.switchToAlgaeMode());
+        joystick1.povDown().onTrue(Constants.switchToCoralMode());
         //SWITCH MODES
 
         //ALGAE MODE CONTROLS
@@ -103,11 +106,11 @@ public class RobotContainer {
         joystick1.y().onTrue(Constants.elevator.setAlgaeHeight(144.63, Constants.getMode()));//  LEVEL THREE HEIGHT - TUNE
         joystick1.y().onTrue(Constants.flipper.setDesiredAlgaeAngle(0, Constants.getMode()));////LEVEL THREE ANGLE - TUNE
 
-        joystick1.b().onTrue(Constants.elevator.setCoralHeight(220, Constants.getMode()));//BARGE SHOT HEIGHT - TUNE
+        joystick1.b().onTrue(Constants.elevator.setCoralHeight(230, Constants.getMode()));//BARGE SHOT HEIGHT - TUNE
         joystick1.b().onTrue(Constants.flipper.setDesiredAlgaeAngle(0, Constants.getMode()));//BARGE SHOT ANGLE - TUNE
 
-        //joystick1.leftBumper().whileTrue(Constants.algaeIntake.pullAlgaeIn(Constants.getMode())).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
-        //joystick1.rightBumper().whileTrue(Constants.algaeIntake.pushAlgaeOut(Constants.getMode())).onFalse(Constants.coralIntake.hold());
+        joystick1.leftBumper().whileTrue(Constants.algaeIntake.pullAlgaeIn(Constants.getMode())).onFalse(Constants.algaeIntake.hold(Constants.getMode()));//On true, button pressed, calls method.
+        joystick1.rightBumper().whileTrue(Constants.algaeIntake.pushAlgaeOut(Constants.getMode())).onFalse(Constants.algaeIntake.stopIntake());
         //ALGAE MODE CONTROLS
 
 

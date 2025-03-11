@@ -1,9 +1,7 @@
 package frc.robot;
 
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.generated.TunerConstants;
@@ -15,6 +13,10 @@ import frc.robot.subsystems.Flipper;
 import frc.robot.subsystems.Climber;
 
 import static edu.wpi.first.units.Units.*;
+
+import javax.lang.model.util.ElementScanner14;
+
+import org.w3c.dom.css.ElementCSSInlineStyle;
 
 public final class Constants //Constants that must be accessed in multiple classes.
 {
@@ -49,37 +51,27 @@ public final class Constants //Constants that must be accessed in multiple class
         return mode;
     }
 
-    public static InstantCommand switchModes()
+    public static InstantCommand switchToAlgaeMode()
     {
-        if(mode.equals("coral"))
-        {
-            SmartDashboard.putString("Elevator Mode", "algae");
             return new InstantCommand(() -> mode = "algae");
-        }
-        else
-        {
-            SmartDashboard.putString("Elevator Mode", "coral");
-            return new InstantCommand(() -> mode = "coral");
-        }
     }
-    private static double speedFactor = 0.25;//Between -1 and 1
+    public static InstantCommand switchToCoralMode()
+    {
+        return new InstantCommand(() -> mode = "coral");
+    }
+    private static double speedFactor = 0.20;//Between -1 and 1
+
     public static double getSpeedFactor()
     {
         return speedFactor;
     }
-    public static InstantCommand switchSpeeds()
+    public static InstantCommand switchToTurboSpeed()
     {
-        if(speedFactor==0.20)
-        {
-            SmartDashboard.putString("Speed", "Turbo");
-            return new InstantCommand(() -> speedFactor = 0.5);//Set to 1 if necessary.
-        }
-        else
-        {
-            SmartDashboard.putString("Speed", "Normal");
-            return new InstantCommand(() -> speedFactor = 0.25);
-        }
+        return new InstantCommand(() -> speedFactor = 0.50);//Set to 1 if necessary.
     }
-
-
+     public static InstantCommand switchToRegularSpeed()
+     {
+        return new InstantCommand(() -> speedFactor = 0.20);
+     }
+        
 }

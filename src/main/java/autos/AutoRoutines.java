@@ -18,7 +18,7 @@ public class AutoRoutines
             new InstantCommand(() -> drivetrain.setControl(
               Constants.drive.withVelocityX(Constants.MaxSpeed * 0.5 * Math.pow(-1, alliance))
               )),
-            new WaitCommand(5));
+            new WaitCommand(2));
             //new InstantCommand(() -> drivetrain.setControl(
               //Constants.drive.withRotationalRate(Constants.MaxAngularRate * 0.5)
               //)),

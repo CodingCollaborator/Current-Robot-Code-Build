@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CoralIntake extends SubsystemBase {
 
     private TalonSRX coralIntake;
-    private static final double PUSH_OUT = -0.3;
+    private static final double PUSH_OUT = -1.0;
     private static final double BRAKE = 0.0;
-    private static final double PULL_IN = 0.6;
+    private static final double PULL_IN = 1.0;
     private static final double HOLD = 0.20;
     //VERY IMPORTANT, REMEMBER TO SET TO FULL SPEED FOR COMPETITION.
 
     public CoralIntake() {
-        coralIntake = new TalonSRX(14);
+        coralIntake = new TalonSRX(15);
     }
 
     public InstantCommand pullCoralIn(String mode) {
@@ -33,8 +33,11 @@ public class CoralIntake extends SubsystemBase {
         return new InstantCommand();
     }
 
-    public InstantCommand hold() {
+    public InstantCommand hold(String mode) {
+        if(mode.equals("coral"))
         return new InstantCommand(() -> coralIntake.set(TalonSRXControlMode.PercentOutput, HOLD));//Stop
+        else
+        return new InstantCommand();
     }
 
     public InstantCommand stopIntake() {

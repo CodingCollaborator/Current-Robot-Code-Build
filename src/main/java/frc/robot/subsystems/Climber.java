@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase
     private static final double PULL_IN = 0.06;
     public Climber()
     {
-        climberMotor = new TalonSRX(15);
+        climberMotor = new TalonSRX(14);
         ratchetRalph = new Servo(0);
     }
     public SequentialCommandGroup letOut()//May have to crank in first.
@@ -35,7 +35,7 @@ public class Climber extends SubsystemBase
     public SequentialCommandGroup pullIn()
     {
         return new InstantCommand(() -> {
-            ratchetRalph.setAngle(90);
+            ratchetRalph.setAngle(0);
         }).andThen(new WaitCommand(1.0)).andThen(() -> {
             climberMotor.set(TalonSRXControlMode.PercentOutput, PULL_IN);
         }).andThen(new WaitCommand(1.0)).andThen(() -> {

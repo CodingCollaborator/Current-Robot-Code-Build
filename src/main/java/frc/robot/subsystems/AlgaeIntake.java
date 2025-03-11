@@ -60,8 +60,11 @@ public class AlgaeIntake
         return new InstantCommand();
     }
 
-    public InstantCommand hold() {
+    public InstantCommand hold(String mode) {
+        if(mode.equals("algae"))
         return new InstantCommand(() -> backAlgaeMotor.set(HOLD));//# Starting At 5% Power
+        else
+        return new InstantCommand();
     }
 
     public InstantCommand stopIntake() {
